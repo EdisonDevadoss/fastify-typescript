@@ -42,9 +42,7 @@ server.get<{
 
 server.listen(PORT, '0.0.0.0', (err, address)=>{
     if(err){
-        console.log(err);
         process.exit(1)
     }
     // server.log.info(`server listening on ${server.server.address().port}`);
-    console.log(`server listening at ${address}`)
 })
