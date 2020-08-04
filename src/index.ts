@@ -12,7 +12,7 @@ const server = fastify({
     logger: true
 });
 
-const PORT : string|number = process.env.PORT || 3000
+const PORT:any = process.env.PORT || 3000
 
 // interface IQueryString {
 //     username: string;
