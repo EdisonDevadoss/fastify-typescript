@@ -3,7 +3,7 @@ import fastify from 'fastify';
 import QuerystringSchema from '../schemas/querystring.json';
 // import genereated interface
 
-import build from './app';
+import build from './application';
 
 const PORT:any = process.env.PORT || 3000
 

@@ -1,5 +1,5 @@
 // import app from '../src/hello';
-import build from '../src/app';
+import build from '../app/application';
 
 import { expect } from 'chai';
 

@@ -8,6 +8,7 @@ import HeadersSchema from '../schemas/headers.json'
 import {HeaderSchema as HeaderSchemaInterface } from '../types/headers';
 import {QuerystringSchema as QuerystringSchemaInterface } from '../types/querystring';
 
+import ExpensesRoute from './routes/expenses.routes'
 
 function build() {
 const server = fastify({
@@ -17,7 +18,7 @@ const server = fastify({
 // const PORT:any = process.env.PORT || 3000
 
 server.get('/ping', async(request, reply)=>{
-    return 'Hello World!'
+    return 'Hello Worlds!'
 });
 
 server.get<{
@@ -30,6 +31,10 @@ server.get<{
     }}, async(request, reply)=>{
  return 'Logged in'
 });
+
+server.register(ExpensesRoute, { prefix: '/v1' });
+
+
 return server;
 }
 

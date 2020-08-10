@@ -2,14 +2,14 @@
   "name": "fastify-typescript",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/src/index.js",
+  "main": "dist/app/index.js",
   "scripts": {
     "compile-schemas": "json2ts -i schemas -o types",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
     "postinstall": "npm run build",
-    "start": "node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start": "node --inspect=5858 -r ts-node/register ./app/index.ts",
     "start:watch": "nodemon",
     "test": "mocha -r ts-node/register ./tests/**/*test.ts"
   },
@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/validator": "^13.1.0",
     "fastify": "^2.15.0",
     "lodash": "^4.17.19",
     "pg": "^8.3.0",
@@ -26,9 +27,10 @@
     "ts-node": "^8.10.2"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.32",
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.1",
-    "@types/node": "^14.0.14",
+    "@types/node": "^14.0.27",
     "chai": "^4.2.0",
     "json-schema-to-typescript": "^9.1.0",
     "mocha": "^8.1.1",
