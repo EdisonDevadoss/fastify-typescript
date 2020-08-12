@@ -1,7 +1,8 @@
-import Expense from '../models/expense';
+import db from '../models';
 
+console.log('Expense is', db.Expense)
 function create(attributes: any) {
-    return Expense.create(attributes);
+    return db.Expense.create(attributes);
 }
 
 export {create};

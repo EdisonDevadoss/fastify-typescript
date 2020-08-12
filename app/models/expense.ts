@@ -1,44 +1,43 @@
-import {
-    Sequelize,
-    Model,
-    ModelDefined,
-    DataTypes,
-    Optional
-  } from "sequelize";
-const sequelize = new Sequelize("postgres://edison:edison12345@localhost:5432/my-expenses-dev");
+import { BuildOptions, DataTypes, Model, Sequelize } from "sequelize";
 
 interface ExpenseAttributes {
   id: number;
-  particular: number;
+  particular: string;
   income: number;
   giving: number;
   debt: number;
   taxes: number;
 }
 
-interface UserExpenseAttributes extends Optional<ExpenseAttributes, "id"> {}
+interface ExpenseModel extends Model<ExpenseAttributes>, ExpenseAttributes {}
+class ExpenseClass extends Model<ExpenseModel, ExpenseAttributes> {}
 
-const Expense: ModelDefined<
-ExpenseAttributes,
-UserExpenseAttributes
-> = sequelize.define(
-  'Expense',
-  {
-    particular:{
+type ExpenseStatic = typeof Model & (new (values?: object, options?: BuildOptions) => ExpenseModel);
+
+function Expense (sequelize: Sequelize): ExpenseStatic {
+  return sequelize.define("Expense",
+    {
+      particular:{
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    income:{
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    giving:{
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    debt: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+        validate: {
+          is: {
+            args: /^[a-z]+$/i,
+            msg: 'Particular is string only'
+          },
+        }
+      },
+      income:{
+          type: DataTypes.INTEGER,
+          allowNull: true,
+      },
+      giving:{
+          type: DataTypes.INTEGER,
+          allowNull: true,
+      },
+      debt: {
+          type: DataTypes.INTEGER,
+          allowNull: true
       },
       taxes: {
         type: DataTypes.INTEGER,
@@ -48,8 +47,9 @@ UserExpenseAttributes
   {
     tableName: 'expenses',
     underscored: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-  }
-);
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }) as ExpenseStatic;
+}
+
 export default Expense;
